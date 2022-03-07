@@ -79,7 +79,7 @@ def tokenize(document):
             continue
         if token in nltk.corpus.stopwords.words("english")
             continue
-        processed_tokens.append(token)
+        processed_tokens.append(token.lower())
 
     return processed_tokens
 
