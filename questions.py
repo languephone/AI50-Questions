@@ -75,9 +75,9 @@ def tokenize(document):
     # Process tokens to remove punctuation and stopwords
     processed_tokens = []
     for token in tokens:
-        if token in string.punctuation:
+        if token.lower() in string.punctuation:
             continue
-        if token in nltk.corpus.stopwords.words("english")
+        if token.lower() in nltk.corpus.stopwords.words("english")
             continue
         processed_tokens.append(token.lower())
 
