@@ -50,7 +50,7 @@ def load_files(directory):
     Given a directory name, return a dictionary mapping the filename of each
     `.txt` file inside that directory to the file's contents as a string.
     """
-    
+
     text_dict = {}
 
     for file in os.listdir(directory):
@@ -77,7 +77,7 @@ def tokenize(document):
     for token in tokens:
         if token.lower() in string.punctuation:
             continue
-        if token.lower() in nltk.corpus.stopwords.words("english")
+        if token.lower() in nltk.corpus.stopwords.words("english"):
             continue
         processed_tokens.append(token.lower())
 
@@ -92,7 +92,18 @@ def compute_idfs(documents):
     Any word that appears in at least one of the documents should be in the
     resulting dictionary.
     """
-    raise NotImplementedError
+
+    # Set up idf calculation
+    document_count = len(documents)
+    word_bank = set()
+
+    # Loop through each file and word in file
+    for file in documents:
+        for word in documents[file]:
+            # Tally occurences of each word in the word_bank dictionary
+            word_bank[word] = word_bank[word] + 1 if word in word_bank else 1
+
+
 
 
 def top_files(query, files, idfs, n):
