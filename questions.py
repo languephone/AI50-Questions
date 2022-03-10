@@ -103,7 +103,7 @@ def compute_idfs(documents):
     for file in documents:
         for word in documents[file]:
             # Tally occurences of each word in the word_bank dictionary
-            word_bank[word] = word_bank[word] + 1 if word in word_bank else 
+            word_bank[word] = word_bank[word] + 1 if word in word_bank else 1
 
     # Loop through each word to calculate inverse document frequency
     idf_bank = {
