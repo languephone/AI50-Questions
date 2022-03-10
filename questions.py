@@ -96,7 +96,7 @@ def compute_idfs(documents):
 
     # Set up idf calculation
     document_count = len(documents)
-    word_bank = {}
+    word_bank = set()
     idf_bank = {}
 
     # Loop through each file and word in file to get count of each word
@@ -107,7 +107,7 @@ def compute_idfs(documents):
 
     # Loop through each word to calculate inverse document frequency
     idf_bank = {
-        word: log(word_bank[word] / document_count)
+        word: log(document_count / word_bank[word])
         for word in word_bank
     }
 
