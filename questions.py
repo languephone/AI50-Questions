@@ -71,7 +71,7 @@ def tokenize(document):
     """
 
     # Use nltk's tokenizer to convert sentence into words
-    tokens = nltk.word_tokenize(sentence)
+    tokens = nltk.word_tokenize(document)
     # Process tokens to remove punctuation and stopwords
     processed_tokens = []
     for token in tokens:
