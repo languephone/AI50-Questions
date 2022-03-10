@@ -2,6 +2,7 @@ import nltk
 import sys
 import os
 import string
+from math import log
 
 FILE_MATCHES = 1
 SENTENCE_MATCHES = 1
@@ -95,15 +96,22 @@ def compute_idfs(documents):
 
     # Set up idf calculation
     document_count = len(documents)
-    word_bank = set()
+    word_bank = {}
+    idf_bank = {}
 
-    # Loop through each file and word in file
+    # Loop through each file and word in file to get count of each word
     for file in documents:
         for word in documents[file]:
             # Tally occurences of each word in the word_bank dictionary
-            word_bank[word] = word_bank[word] + 1 if word in word_bank else 1
+            word_bank[word] = word_bank[word] + 1 if word in word_bank else 
 
+    # Loop through each word to calculate inverse document frequency
+    idf_bank = {
+        word: log(word_bank[word] / document_count)
+        for word in word_bank
+    }
 
+    return idf_bank
 
 
 def top_files(query, files, idfs, n):
