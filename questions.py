@@ -96,12 +96,13 @@ def compute_idfs(documents):
 
     # Set up idf calculation
     document_count = len(documents)
-    word_bank = set()
-    idf_bank = {}
+    word_bank = {}
 
     # Loop through each file and word in file to get count of each word
     for file in documents:
-        for word in documents[file]:
+        # Create 'set' of words to ensure each word appears only once
+        document_words = set(documents[file])
+        for word in document_words:
             # Tally occurences of each word in the word_bank dictionary
             word_bank[word] = word_bank[word] + 1 if word in word_bank else 1
 
@@ -121,7 +122,8 @@ def top_files(query, files, idfs, n):
     to their IDF values), return a list of the filenames of the the `n` top
     files that match the query, ranked according to tf-idf.
     """
-    raise NotImplementedError
+    for file in files:
+        
 
 
 def top_sentences(query, sentences, idfs, n):
