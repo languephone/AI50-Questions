@@ -125,19 +125,32 @@ def top_files(query, files, idfs, n):
 
     top_files = {}
 
+    # Calculate tfidf in each document for words in query
+    for file in files:
+        top_files[file] = {}
+        for word in files[file]:
+            if word in query:
+                if word in top_files[file]:
+                    top_files[file][word]['tf'] += 1
+                else:
+                    top_files[file][word] = {'tf': 1, 'idf': idfs[word]}
+
+        # Combine tf and idf into tfidf
+        for word in top_files[file]:
+            top_files[file][word]['tfidf'] = (top_files[file][word]['tf'] *
+                                              top_files[file][word]['idf'])
+
     # Loop through each file summing idf values of words in the query
     for file in files:
         file_score = 0
-        for word in files[file]:
-            if word in query:
-                file_score += idfs[word]
-        top_files[file] = file_score
+        for word in top_files[file]:
+            file_score += top_files[file][word]['tfidf']
+        top_files[file]['file_score'] = file_score
 
-    top_files = sorted(top_files.keys(), key=lambda x: top_files[x],
-        reverse=True)
+    top_files = sorted(top_files.keys(),
+        key=lambda x: top_files[x]['file_score'], reverse=True)
 
     return top_files[:FILE_MATCHES]
-        
 
 
 def top_sentences(query, sentences, idfs, n):
