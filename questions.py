@@ -161,7 +161,25 @@ def top_sentences(query, sentences, idfs, n):
     the query, ranked according to idf. If there are ties, preference should
     be given to sentences that have a higher query term density.
     """
-    raise NotImplementedError
+    top_sentences = {}
+
+    # Calculate sum of ifs in each sentence for words in query
+    for sentence in sentences:
+        top_sentences[sentence] = {'idf': 0, 'density': 0}
+        for word in query:
+            if word in sentences[sentence]:
+                top_sentences[sentence]['idf'] += idfs[word]
+                # Calculate query term density as a tiebreaker
+                top_sentences[sentence]['density'] += (1 / len(sentence))
+
+    # Sort first by density, then by idf values
+    densest_sentences = sorted(top_sentences,
+        key=lambda x: top_sentences[x]['density'], reverse=True)
+
+    highest_idf_sentences = sorted(densest_sentences,
+        key=lambda x: top_sentences[x]['idf'], reverse=True)
+
+    return highest_idf_sentences[:FILE_MATCHES]
 
 
 if __name__ == "__main__":
