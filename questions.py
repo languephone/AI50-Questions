@@ -179,7 +179,7 @@ def top_sentences(query, sentences, idfs, n):
     highest_idf_sentences = sorted(densest_sentences,
         key=lambda x: top_sentences[x]['idf'], reverse=True)
 
-    return highest_idf_sentences[:FILE_MATCHES]
+    return highest_idf_sentences[:SENTENCE_MATCHES]
 
 
 if __name__ == "__main__":
